@@ -337,8 +337,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 246.45612, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -958,7 +958,7 @@ MonoBehaviour:
   countdownText: {fileID: 391839276}
   winnerPanel: {fileID: 1593343763}
   winnerText: {fileID: 1756960926}
-  numberOfQTEsPerTrack: 15
+  numberOfQTEsPerTrack: 30
   qtePrefab: {fileID: 2110669988550777469, guid: 5cd192a36ef934c4cacadc43e5f7d707, type: 3}
 --- !u!1001 &1582693917
 PrefabInstance:
@@ -1012,6 +1012,10 @@ PrefabInstance:
       propertyPath: endPoint
       value: 
       objectReference: {fileID: 377813255}
+    - target: {fileID: 4742876034391063191, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
+      propertyPath: moveSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4742876034391063191, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
       propertyPath: startPoint
       value: 
@@ -1199,6 +1203,10 @@ PrefabInstance:
       propertyPath: endPoint
       value: 
       objectReference: {fileID: 864083044}
+    - target: {fileID: 4742876034391063191, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
+      propertyPath: moveSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4742876034391063191, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
       propertyPath: startPoint
       value: 
