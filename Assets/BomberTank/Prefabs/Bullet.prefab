@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   speed: 10
+  directionBullet: {x: 0, y: 0, z: 0}
 --- !u!61 &4255299402341736075
 BoxCollider2D:
   m_ObjectHideFlags: 0
