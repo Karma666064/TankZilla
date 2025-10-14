@@ -1,26 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerDuel : MonoBehaviour
+public class TargetPlayer : MonoBehaviour
 {
     [Header("Configuration")]
     public int playerNumber = 1;
-    public float shootCooldown = 0.2f; 
-    public GameObject bulletPrefab;
-    public Transform bulletSpawnPoint;
+    public float shootCooldown = 0.3f;
+    public GameObject projectilePrefab;
+    public Transform shootPoint;
     
     [Header("Input System")]
     public InputActionAsset inputActions;
     private InputActionMap playerActionMap;
     
     [Header("Stats")]
-    public int bulletsShot = 0;
+    public int score = 0;
     
     private bool canShoot = true;
     private float shootTimer = 0f;
     private bool isGameActive = false;
-    private bool isDead = false;
-    
     private Vector2 shootDirection;
     
     void Awake()
@@ -41,12 +39,12 @@ public class PlayerDuel : MonoBehaviour
             }
         }
         
-        shootDirection = playerNumber == 1 ? Vector2.right : Vector2.left;
+        shootDirection = Vector2.up;
     }
     
     void Update()
     {
-        if (!isGameActive || isDead) return;
+        if (!isGameActive) return;
         
         if (!canShoot)
         {
@@ -60,7 +58,7 @@ public class PlayerDuel : MonoBehaviour
     
     private void OnFire(InputAction.CallbackContext context)
     {
-        if (isGameActive && !isDead && canShoot)
+        if (isGameActive && canShoot)
         {
             Shoot();
         }
@@ -68,24 +66,20 @@ public class PlayerDuel : MonoBehaviour
     
     void Shoot()
     {
-        if (bulletPrefab == null || bulletSpawnPoint == null) return;
-        
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-        
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
-        if (bulletScript != null)
+        if (projectilePrefab == null || shootPoint == null) return;
+
+        GameObject projectile = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
+
+        TargetProjectile projectileScript = projectile.GetComponent<TargetProjectile>();
+        if (projectileScript != null)
         {
-            bulletScript.Initialize(playerNumber, shootDirection);
+            projectileScript.Initialize(playerNumber, shootDirection);
         }
-        
-        bulletsShot++;
         
         canShoot = false;
         shootTimer = shootCooldown;
         
         StartCoroutine(ShootEffect());
-        
-        Debug.Log($"Player {playerNumber} tire ! Total: {bulletsShot} balles");
     }
     
     System.Collections.IEnumerator ShootEffect()
@@ -94,50 +88,34 @@ public class PlayerDuel : MonoBehaviour
         if (sr != null)
         {
             Color original = sr.color;
-            sr.color = Color.yellow;
+            sr.color = Color.cyan;
             yield return new WaitForSeconds(0.1f);
             sr.color = original;
+        }
+    }
+    
+    public void AddScore(int points)
+    {
+        score += points;
+        Debug.Log($"Player {playerNumber} score: {score} (+{points})");
+        
+        if (TargetGameManager.Instance != null)
+        {
+            TargetGameManager.Instance.UpdateScores();
         }
     }
     
     public void StartGame()
     {
         isGameActive = true;
-        isDead = false;
-        bulletsShot = 0;
+        score = 0;
         canShoot = true;
         shootTimer = 0f;
     }
     
-    public void Die()
+    public void StopGame()
     {
-        if (isDead) return;
-        
-        isDead = true;
         isGameActive = false;
-        
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (sr != null)
-        {
-            sr.color = Color.red;
-        }
-        
-        Debug.Log($"Player {playerNumber} est mort !");
-        
-        DuelGameManager.Instance.PlayerDied(playerNumber);
-    }
-    
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Bullet"))
-        {
-            Bullet bullet = collision.GetComponent<Bullet>();
-            if (bullet != null && bullet.ownerPlayer != playerNumber)
-            {
-                Die();
-                Destroy(collision.gameObject); 
-            }
-        }
     }
     
     void OnDestroy()
