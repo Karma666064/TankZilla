@@ -730,7 +730,7 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Direction"",
+                    ""name"": ""Target"",
                     ""type"": ""Value"",
                     ""id"": ""f25da1d9-5320-46b3-8796-50dbfc02c6cc"",
                     ""expectedControlType"": ""Vector2"",
@@ -761,7 +761,7 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e53e8f3c-2a0a-45ab-99a2-feb9cff3092d"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -772,7 +772,7 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f666d69f-2fb7-42ef-99bc-dda326e0a5f0"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -798,7 +798,7 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Direction"",
+                    ""action"": ""Target"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -888,7 +888,7 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Move = m_Player2.FindAction("Move", throwIfNotFound: true);
-        m_Player2_Direction = m_Player2.FindAction("Direction", throwIfNotFound: true);
+        m_Player2_Target = m_Player2.FindAction("Target", throwIfNotFound: true);
         m_Player2_Attack = m_Player2.FindAction("Attack", throwIfNotFound: true);
         m_Player2_Dash = m_Player2.FindAction("Dash", throwIfNotFound: true);
     }
@@ -1287,7 +1287,7 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player2;
     private List<IPlayer2Actions> m_Player2ActionsCallbackInterfaces = new List<IPlayer2Actions>();
     private readonly InputAction m_Player2_Move;
-    private readonly InputAction m_Player2_Direction;
+    private readonly InputAction m_Player2_Target;
     private readonly InputAction m_Player2_Attack;
     private readonly InputAction m_Player2_Dash;
     /// <summary>
@@ -1306,9 +1306,9 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Player2_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Player2/Direction".
+        /// Provides access to the underlying input action "Player2/Target".
         /// </summary>
-        public InputAction @Direction => m_Wrapper.m_Player2_Direction;
+        public InputAction @Target => m_Wrapper.m_Player2_Target;
         /// <summary>
         /// Provides access to the underlying input action "Player2/Attack".
         /// </summary>
@@ -1346,9 +1346,9 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Direction.started += instance.OnDirection;
-            @Direction.performed += instance.OnDirection;
-            @Direction.canceled += instance.OnDirection;
+            @Target.started += instance.OnTarget;
+            @Target.performed += instance.OnTarget;
+            @Target.canceled += instance.OnTarget;
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
@@ -1369,9 +1369,9 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Direction.started -= instance.OnDirection;
-            @Direction.performed -= instance.OnDirection;
-            @Direction.canceled -= instance.OnDirection;
+            @Target.started -= instance.OnTarget;
+            @Target.performed -= instance.OnTarget;
+            @Target.canceled -= instance.OnTarget;
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
@@ -1598,12 +1598,12 @@ public partial class @InputSystemFootTank: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Direction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Target" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDirection(InputAction.CallbackContext context);
+        void OnTarget(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

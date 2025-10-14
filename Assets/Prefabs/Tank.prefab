@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 3864047288737128360}
   m_Layer: 0
   m_Name: Tank
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,6 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b346bde78de17d438c4b1db95651242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankLifeF
+  maxHealth: 3
+  currentHealth: 0
 --- !u!114 &3864047288737128360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +297,8 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 4058039807640702740}
   damage: 1
   rotationSpeed: 300
+  bulletLifeTime: 4
+  munitionMax: 3
 --- !u!1 &3747054188948070483
 GameObject:
   m_ObjectHideFlags: 0

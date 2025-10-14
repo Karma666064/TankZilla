@@ -12,10 +12,16 @@ public class TankMoveF : MonoBehaviour
     [SerializeField] float acceleration = 4f;
     [SerializeField] float rotationSpeed = 250f; //10f
 
-    Vector2 moveInput;
-    Vector2 lastDirection = Vector2.right;
+    enum PlayerNumber { Player1, Player2 };
+    [SerializeField] PlayerNumber playerNumber;
 
-    bool isMoving;
+    Vector2 moveInputP1;
+    Vector2 moveInputP2;
+    Vector2 lastDirectionP1 = Vector2.right;
+    Vector2 lastDirectionP2 = Vector2.left;
+
+    bool isMovingP1;
+    bool isMovingP2;
 
     private void Awake()
     {
@@ -24,40 +30,80 @@ public class TankMoveF : MonoBehaviour
         inputActions = new InputSystemFootTank();
         inputActions.Enable();
 
-        inputActions.Player1.Move.performed += OnMove;
-        inputActions.Player1.Move.canceled += OnMove;
+        inputActions.Player1.Move.performed += OnMoveP1;
+        inputActions.Player1.Move.canceled += OnMoveP1;
+        inputActions.Player2.Move.performed += OnMoveP2;
+        inputActions.Player2.Move.canceled += OnMoveP2;
+
+        //if (playerNumber == PlayerNumber.Player1) transform.rotation = Quaternion.LookRotation(lastDirectionP1);
+        //if (playerNumber == PlayerNumber.Player2) transform.rotation = Quaternion.LookRotation(lastDirectionP2);
     }
 
     private void FixedUpdate()
     {
-        // Déplacement
+        if (playerNumber == PlayerNumber.Player1)
+        {
+            Move(moveInputP1);
+            lastDirectionP1 = RotateBody(moveInputP1, lastDirectionP1);
+        }
+
+        if (playerNumber == PlayerNumber.Player2)
+        {
+            Move(moveInputP2);
+            lastDirectionP2 = RotateBody(moveInputP2, lastDirectionP2);
+        }
+    }
+
+    void OnMoveP1(InputAction.CallbackContext context)
+    {
+        
+        moveInputP1 = context.ReadValue<Vector2>();
+
+        if (context.performed) isMovingP1 = true;
+        if (context.canceled) isMovingP1 = false;
+    }
+
+    void OnMoveP2(InputAction.CallbackContext context)
+    {
+        moveInputP2 = context.ReadValue<Vector2>();
+
+        if (context.performed) isMovingP2 = true;
+        if (context.canceled) isMovingP2 = false;
+    }
+
+    void Move(Vector2 moveInput)
+    {
         Vector2 velocity = rb.linearVelocity;
         velocity.x = Mathf.Lerp(velocity.x, moveInput.x * speed, Time.fixedDeltaTime * acceleration);
         velocity.y = Mathf.Lerp(velocity.y, moveInput.y * speed, Time.fixedDeltaTime * acceleration);
         rb.linearVelocity = velocity;
+    }
 
-        // Modifier la rotation du body
-        if (moveInput.sqrMagnitude > 0.001f)
-            lastDirection = moveInput;
+    Vector2 RotateBody(Vector2 moveInput, Vector2 lastDirection)
+    {
+        if (moveInput.sqrMagnitude > 0.01f)
+            lastDirection = moveInput.normalized;
 
         float angle = Mathf.Atan2(lastDirection.y, lastDirection.x) * Mathf.Rad2Deg;
+
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-        tankBody.transform.rotation = Quaternion.RotateTowards(
+        tankBody.transform.rotation = Quaternion.Lerp(
             tankBody.transform.rotation,
             targetRotation,
             Time.deltaTime * rotationSpeed
         );
+
+        return lastDirection;
     }
 
-    void OnMove(InputAction.CallbackContext context)
+    public bool IsMovingP1() => isMovingP1;
+    public bool IsMovingP2() => isMovingP2;
+
+    public string GetPlayerNumber() => playerNumber == PlayerNumber.Player1 ? "Player1" : "Player2";
+
+    public Vector2 GetLastDirection(int playerNum)
     {
-        moveInput = context.ReadValue<Vector2>();
-
-        if (context.performed) isMoving = true;
-        if (context.canceled) isMoving = false;
+        if (playerNum == 1) return lastDirectionP1;
+        else return lastDirectionP2;
     }
-
-    public bool IsMoving() => isMoving;
-
-    public Vector2 GetLastDirection() => lastDirection;
 }

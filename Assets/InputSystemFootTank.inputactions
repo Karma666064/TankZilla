@@ -644,7 +644,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Direction",
+                    "name": "Target",
                     "type": "Value",
                     "id": "f25da1d9-5320-46b3-8796-50dbfc02c6cc",
                     "expectedControlType": "Vector2",
@@ -675,7 +675,7 @@
                 {
                     "name": "",
                     "id": "e53e8f3c-2a0a-45ab-99a2-feb9cff3092d",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -686,7 +686,7 @@
                 {
                     "name": "",
                     "id": "f666d69f-2fb7-42ef-99bc-dda326e0a5f0",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -712,7 +712,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Direction",
+                    "action": "Target",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

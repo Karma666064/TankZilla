@@ -25,6 +25,7 @@ public class TankDashF : MonoBehaviour
         inputActions.Enable();
 
         inputActions.Player1.Dash.started += OnDash;
+        inputActions.Player2.Dash.started += OnDash;
     }
 
     void OnDash(InputAction.CallbackContext context)
@@ -37,12 +38,10 @@ public class TankDashF : MonoBehaviour
 
     IEnumerator Dash()
     {
-        Vector2 dashDirection = tm.GetLastDirection();
-
         isDashing = true;
         canDash = false;
 
-        rb.linearVelocity = dashDirection * dashingPower;
+        rb.linearVelocity = transform.forward * dashingPower;
 
         yield return new WaitForSeconds(dashingTime);
 

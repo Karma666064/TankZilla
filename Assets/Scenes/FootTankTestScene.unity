@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 139301008}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 358166431}
   m_Layer: 0
   m_Name: Square (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -575,7 +575,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3351909618096698103, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
       propertyPath: m_Name
-      value: Tank
+      value: Tank P1
       objectReference: {fileID: 0}
     - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
       propertyPath: m_LocalScale.x
@@ -591,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -9.42
       objectReference: {fileID: 0}
     - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
       propertyPath: m_LocalPosition.y
@@ -629,6 +629,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6570053692973255392, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: playerNumber
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7164660110487263357, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
       propertyPath: m_GravityScale
       value: 0
@@ -659,7 +663,7 @@ GameObject:
   - component: {fileID: 1972605452}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -796,7 +800,7 @@ GameObject:
   - component: {fileID: 1974602234}
   m_Layer: 0
   m_Name: Square (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -920,6 +924,91 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &2039555490
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3351909618096698103, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_Name
+      value: Tank P2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990743103379181310, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570053692973255392, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: playerNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164660110487263357, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112709491530773798, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: dashingTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112709491530773798, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
+      propertyPath: dashingPower
+      value: 16
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 165114bc2944abe4892e6ee7b5de03da, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -927,3 +1016,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 327400541}
   - {fileID: 861947387}
+  - {fileID: 2039555490}

@@ -19,6 +19,8 @@ public class TankAttackF : MonoBehaviour
 
     int currentMunitions;
 
+    Vector2 lastJoystickDirection = Vector2.left;
+
     private void Awake()
     {
         tm = GetComponent<TankMoveF>();
@@ -26,7 +28,9 @@ public class TankAttackF : MonoBehaviour
         inputActions = new InputSystemFootTank();
         inputActions.Enable();
 
-        inputActions.Player1.Attack.started += OnAttack;
+        inputActions.Player1.Attack.started += OnAttackP1;
+        inputActions.Player2.Attack.started += OnAttackP2;
+        inputActions.Player2.Target.performed += OnSetJoystick;
     }
 
     private void Start()
@@ -36,24 +40,64 @@ public class TankAttackF : MonoBehaviour
 
     private void Update()
     {
-        Vector2 direction = GetMousePos();
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-        tankTurret.transform.rotation = Quaternion.RotateTowards(
-            tankTurret.transform.rotation,
-            targetRotation,
-            Time.deltaTime * rotationSpeed
-        );
+        if (tm.GetPlayerNumber() == "Player1")
+        {
+            Vector2 direction = GetMouseDirection();
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+            tankTurret.transform.rotation = Quaternion.RotateTowards(
+                tankTurret.transform.rotation,
+                targetRotation,
+                Time.deltaTime * rotationSpeed
+            );
+        }
+
+        if (tm.GetPlayerNumber() == "Player2")
+        {
+            Vector2 direction = lastJoystickDirection;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+            tankTurret.transform.rotation = Quaternion.RotateTowards(
+                tankTurret.transform.rotation,
+                targetRotation,
+                Time.deltaTime * rotationSpeed
+            );
+        }
     }
 
-    void OnAttack(InputAction.CallbackContext context)
+    void OnAttackP1(InputAction.CallbackContext context)
     {
+        if (tm.GetPlayerNumber() == "Player1")
+        {
+            Debug.Log("Player 1 Attack!");
+            Attack(GetMouseDirection());
+        }
+    }
+
+    void OnAttackP2(InputAction.CallbackContext context)
+    {
+        if (tm.GetPlayerNumber() == "Player2")
+        {
+            Debug.Log("Player 2 Attack!");
+            Attack(lastJoystickDirection);
+        }
+    }
+
+    void OnSetJoystick(InputAction.CallbackContext context)
+    {
+        if (context.ReadValue<Vector2>().sqrMagnitude > 0.1f)
+            lastJoystickDirection = context.ReadValue<Vector2>();
+    }
+
+    void Attack(Vector2 direction)
+    {
+        Debug.Log("A player is attacking!");
         if (currentMunitions > 0)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
             bullet.GetComponent<BulletMakeDamageF>().damageToMake = damage;
             bullet.GetComponent<BulletMoveF>().lifeTime = bulletLifeTime;
-            bullet.GetComponent<BulletMoveF>().direction = GetMousePos();
+            bullet.GetComponent<BulletMoveF>().direction = direction;
 
             currentMunitions--;
             if (currentMunitions < munitionMax)
@@ -69,12 +113,12 @@ public class TankAttackF : MonoBehaviour
         currentMunitions++;
     }
 
-    Vector2 GetMousePos()
+    Vector2 GetMouseDirection()
     {
         Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         mousePos.z = 0f;
 
-        return mousePos;
+        return -(transform.position - mousePos).normalized;
     }
 }

@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809ec964cae32c246a15aa8f04825f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletMoveF
-  speed: 3
+  speed: 16
   lifeTime: 0
   direction: {x: 0, y: 0}
 --- !u!58 &9096567679601903319
@@ -132,7 +132,7 @@ CircleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 1321e75be83d42e48b734ee3c85f5819, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -184,4 +184,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
