@@ -1,11 +1,10 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
-using NUnit.Framework;
 
 public class TankLifeB : MonoBehaviour
 {
     public float currentLife;
+    [SerializeField] private Transform[] respawnPos;
     [SerializeField] private GameObject objectForBlink;
 
     [SerializeField] private float maxLife = 10;
@@ -23,10 +22,13 @@ public class TankLifeB : MonoBehaviour
         {
             currentLife -= damage;
             Mathf.Clamp(currentLife, 0, maxLife);
+            Debug.Log(currentLife);
+            if (currentLife <= 0)
+                Respawn();
             StartCoroutine(Blink());
         }
     }
-    
+
     IEnumerator Blink()
     {
         isBlinking = true;
@@ -40,5 +42,11 @@ public class TankLifeB : MonoBehaviour
 
         isBlinking = false;
 
+    }
+    
+    public void Respawn()
+    {
+        int rand = Random.Range(0, 4);
+        transform.position = respawnPos[rand].position;
     }
 }
