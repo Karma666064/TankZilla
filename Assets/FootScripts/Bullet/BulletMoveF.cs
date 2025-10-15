@@ -3,23 +3,27 @@ using UnityEngine;
 
 public class BulletMoveF : MonoBehaviour
 {
+    Rigidbody2D rb;
+
     [SerializeField] float speed = 12f;
     [HideInInspector] public float lifeTime;
     [HideInInspector] public Vector2 direction;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         StartCoroutine(DespawnBullet(lifeTime));
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        rb.linearVelocity = direction * speed;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ball"))
         {
             Vector2 normal = collision.contacts[0].normal;
             Vector2 reflectDir = Vector2.Reflect(direction, normal);

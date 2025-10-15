@@ -69,7 +69,6 @@ public class TankAttackF : MonoBehaviour
     {
         if (tm.GetPlayerNumber() == "Player1")
         {
-            Debug.Log("Player 1 Attack!");
             Attack(GetMouseDirection());
         }
     }
@@ -78,7 +77,6 @@ public class TankAttackF : MonoBehaviour
     {
         if (tm.GetPlayerNumber() == "Player2")
         {
-            Debug.Log("Player 2 Attack!");
             Attack(lastJoystickDirection);
         }
     }
@@ -91,7 +89,6 @@ public class TankAttackF : MonoBehaviour
 
     void Attack(Vector2 direction)
     {
-        Debug.Log("A player is attacking!");
         if (currentMunitions > 0)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);

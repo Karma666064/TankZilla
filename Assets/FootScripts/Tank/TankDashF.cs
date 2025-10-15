@@ -10,6 +10,8 @@ public class TankDashF : MonoBehaviour
 
     TankMoveF tm;
 
+    [SerializeField] GameObject tankBody;
+
     [SerializeField] float dashingPower = 16f;
     [SerializeField] float dashingTime = 4f;
 
@@ -24,11 +26,19 @@ public class TankDashF : MonoBehaviour
         inputActions = new InputSystemFootTank();
         inputActions.Enable();
 
-        inputActions.Player1.Dash.started += OnDash;
-        inputActions.Player2.Dash.started += OnDash;
+        inputActions.Player1.Dash.started += OnDashP1;
+        inputActions.Player2.Dash.started += OnDashP2;
     }
 
-    void OnDash(InputAction.CallbackContext context)
+    void OnDashP1(InputAction.CallbackContext context)
+    {
+        if (canDash)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
+    void OnDashP2(InputAction.CallbackContext context)
     {
         if (canDash)
         {
@@ -38,10 +48,11 @@ public class TankDashF : MonoBehaviour
 
     IEnumerator Dash()
     {
+
         isDashing = true;
         canDash = false;
 
-        rb.linearVelocity = transform.forward * dashingPower;
+        rb.linearVelocity = tankBody.transform.right * dashingPower;
 
         yield return new WaitForSeconds(dashingTime);
 

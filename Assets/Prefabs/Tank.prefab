@@ -114,7 +114,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2343343622949349185}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -122,7 +122,7 @@ Transform:
   - {fileID: 2189080245558577534}
   - {fileID: 2360510783945565246}
   - {fileID: 2599001479002939865}
-  m_Father: {fileID: 5990743103379181310}
+  m_Father: {fileID: 2390865054891615580}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3351909618096698103
 GameObject:
@@ -159,8 +159,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 6206027383085705026}
-  - {fileID: 4307303298268206153}
+  - {fileID: 2390865054891615580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7164660110487263357
@@ -178,7 +177,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -252,6 +251,7 @@ MonoBehaviour:
   speed: 7
   acceleration: 4
   rotationSpeed: 250
+  playerNumber: 0
 --- !u!114 &9112709491530773798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634eed315f54b1343aeb0b820c98b56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankDashF
+  tankBody: {fileID: 3747054188948070483}
   dashingPower: 16
   dashingTime: 4
 --- !u!114 &2265071821543841317
@@ -278,6 +279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b346bde78de17d438c4b1db95651242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankLifeF
+  spawnPoint: {fileID: 0}
+  sprite: {fileID: 6236998550296323792}
   maxHealth: 3
   currentHealth: 0
 --- !u!114 &3864047288737128360
@@ -298,7 +301,7 @@ MonoBehaviour:
   damage: 1
   rotationSpeed: 300
   bulletLifeTime: 4
-  munitionMax: 3
+  munitionMax: 5
 --- !u!1 &3747054188948070483
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,10 +329,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.56, y: 1, z: 1}
+  m_LocalScale: {x: 1.5600001, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5990743103379181310}
+  m_Father: {fileID: 2390865054891615580}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1599140208703636001
 SpriteRenderer:
@@ -413,7 +416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4058039807640702740}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.124, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -510,3 +513,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6236998550296323792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2390865054891615580}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2390865054891615580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6236998550296323792}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6206027383085705026}
+  - {fileID: 4307303298268206153}
+  m_Father: {fileID: 5990743103379181310}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
