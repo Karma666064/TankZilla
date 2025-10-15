@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDuel
   playerNumber: 2
-  shootCooldown: 0.2
+  shootCooldown: 0
   bulletPrefab: {fileID: 7060708369869302660, guid: ad061abc7563b494d86114ab980aa61f, type: 3}
   bulletSpawnPoint: {fileID: 2113118165}
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
@@ -998,7 +998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDuel
   playerNumber: 1
-  shootCooldown: 0.2
+  shootCooldown: 0
   bulletPrefab: {fileID: 7060708369869302660, guid: ad061abc7563b494d86114ab980aa61f, type: 3}
   bulletSpawnPoint: {fileID: 820430700}
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

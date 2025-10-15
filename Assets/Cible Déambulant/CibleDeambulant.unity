@@ -231,8 +231,8 @@ MonoBehaviour:
   maxPoints: 100
   moveSpeed: 8
   changeDirectionInterval: 8
-  moveRangeX: 3
-  moveRangeY: 2
+  moveRangeX: 5
+  moveRangeY: 3
   pointsText: {fileID: 1723742754}
   targetRenderer: {fileID: 0}
 --- !u!58 &194931497
@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 194931495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.94, y: 0.89, z: 0}
+  m_LocalPosition: {x: 0.01, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1700,6 +1700,9 @@ MonoBehaviour:
   shootCooldown: 0.3
   projectilePrefab: {fileID: 7574526145298667192, guid: 11bc1a36317827944b7e22343cc2e660, type: 3}
   shootPoint: {fileID: 1446703003}
+  moveSpeed: 5
+  minX: -8
+  maxX: 8
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   score: 0
 --- !u!1001 &1128977376
@@ -1808,6 +1811,9 @@ MonoBehaviour:
   shootCooldown: 0.3
   projectilePrefab: {fileID: 7574526145298667192, guid: 11bc1a36317827944b7e22343cc2e660, type: 3}
   shootPoint: {fileID: 1750991018}
+  moveSpeed: 5
+  minX: -8
+  maxX: 8
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   score: 0
 --- !u!1 &1138281215
@@ -2340,8 +2346,8 @@ MonoBehaviour:
   maxPoints: 100
   moveSpeed: 8
   changeDirectionInterval: 8
-  moveRangeX: 3
-  moveRangeY: 2
+  moveRangeX: 5
+  moveRangeY: 3
   pointsText: {fileID: 814925427}
   targetRenderer: {fileID: 0}
 --- !u!58 &1477180515
@@ -2447,7 +2453,7 @@ Transform:
   m_GameObject: {fileID: 1477180513}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.09, y: 0.92, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
