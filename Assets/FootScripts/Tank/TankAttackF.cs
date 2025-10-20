@@ -15,11 +15,13 @@ public class TankAttackF : MonoBehaviour
     [SerializeField] int damage = 1;
     [SerializeField] float rotationSpeed = 300f;
     [SerializeField] float bulletLifeTime = 4f;
-    [SerializeField] int munitionMax = 3;
 
-    int currentMunitions;
+    public int munitionMax = 3;
+    public int currentMunitions;
 
     Vector2 lastJoystickDirection = Vector2.left;
+
+    public bool canAttack { get; set; } = true;
 
     private void Awake()
     {
@@ -67,7 +69,7 @@ public class TankAttackF : MonoBehaviour
 
     void OnAttackP1(InputAction.CallbackContext context)
     {
-        if (tm.GetPlayerNumber() == "Player1")
+        if (tm.GetPlayerNumber() == "Player1" && canAttack)
         {
             Attack(GetMouseDirection());
         }
@@ -75,7 +77,7 @@ public class TankAttackF : MonoBehaviour
 
     void OnAttackP2(InputAction.CallbackContext context)
     {
-        if (tm.GetPlayerNumber() == "Player2")
+        if (tm.GetPlayerNumber() == "Player2" && canAttack)
         {
             Attack(lastJoystickDirection);
         }

@@ -17,11 +17,13 @@ public class TankMoveF : MonoBehaviour
 
     Vector2 moveInputP1;
     Vector2 moveInputP2;
-    Vector2 lastDirectionP1 = Vector2.right;
-    Vector2 lastDirectionP2 = Vector2.left;
+    public Vector2 lastDirectionP1 = Vector2.right;
+    public Vector2 lastDirectionP2 = Vector2.left;
 
+    public bool canMove { get; set; } = true;
     bool isMovingP1;
     bool isMovingP2;
+
 
     private void Awake()
     {
@@ -41,16 +43,19 @@ public class TankMoveF : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerNumber == PlayerNumber.Player1)
+        if (canMove)
         {
-            Move(moveInputP1);
-            lastDirectionP1 = RotateBody(moveInputP1, lastDirectionP1);
-        }
+            if (playerNumber == PlayerNumber.Player1)
+            {
+                Move(moveInputP1);
+                lastDirectionP1 = RotateBody(moveInputP1, lastDirectionP1);
+            }
 
-        if (playerNumber == PlayerNumber.Player2)
-        {
-            Move(moveInputP2);
-            lastDirectionP2 = RotateBody(moveInputP2, lastDirectionP2);
+            if (playerNumber == PlayerNumber.Player2)
+            {
+                Move(moveInputP2);
+                lastDirectionP2 = RotateBody(moveInputP2, lastDirectionP2);
+            }
         }
     }
 

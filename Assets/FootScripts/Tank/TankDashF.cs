@@ -15,6 +15,7 @@ public class TankDashF : MonoBehaviour
     [SerializeField] float dashingPower = 16f;
     [SerializeField] float dashingTime = 4f;
 
+    public bool canActiveDash { get; set; } = true;
     bool canDash = true;
     bool isDashing;
 
@@ -32,7 +33,7 @@ public class TankDashF : MonoBehaviour
 
     void OnDashP1(InputAction.CallbackContext context)
     {
-        if (canDash)
+        if (canDash && canActiveDash)
         {
             StartCoroutine(Dash());
         }
@@ -40,7 +41,7 @@ public class TankDashF : MonoBehaviour
 
     void OnDashP2(InputAction.CallbackContext context)
     {
-        if (canDash)
+        if (canDash && canActiveDash)
         {
             StartCoroutine(Dash());
         }

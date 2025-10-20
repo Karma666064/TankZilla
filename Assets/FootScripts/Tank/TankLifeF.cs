@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class TankLifeF : MonoBehaviour
 {
-    [SerializeField] GameObject spawnPoint;
+    public GameObject spawnPoint;
     [SerializeField] GameObject sprite;
 
-    [SerializeField] int maxHealth = 3;
-    [SerializeField] int currentHealth;
+    public int maxHealth = 3;
+    public int currentHealth ;
 
     string player1Name = "Tank P1";
     string player2Name = "Tank P2";
