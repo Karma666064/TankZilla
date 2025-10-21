@@ -11,18 +11,18 @@ public class ScoreB : MonoBehaviour
     {
         textScoreP1.text = "Score P1: " + scoreP1.ToString();
         textScoreP2.text = "Score P2: " + scoreP2.ToString();
-        BulletMoveB.AddScore += UpdateScore;
+        TankLifeB.AddScore += UpdateScore;
     }
 
     void UpdateScore(int id, int _score)
     {
         switch (id)
         {
-            case 1:
+            case 2:
                 scoreP1 += _score;
                 textScoreP1.text = "Score P1: " + scoreP1.ToString();
                 break;
-            case 2:
+            case 1:
                 scoreP2 += _score;
                 textScoreP2.text = "Score P2: " + scoreP2.ToString();
                 break;

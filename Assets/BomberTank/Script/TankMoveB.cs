@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 
 public class TankMoveB : MonoBehaviour
 {
+    private Vector2 saveVector;
     public enum Direction
     {
         Up,
@@ -55,6 +56,7 @@ public class TankMoveB : MonoBehaviour
 
         if (context.canceled)
         {
+            saveVector = moveInput;
             moveInput = Vector2.zero;
         }
     }

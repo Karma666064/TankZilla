@@ -7,7 +7,7 @@ using System.IO;
 public class TimerB : MonoBehaviour
 {
     private TextMeshProUGUI text;
-    private int timer = 30;
+    [SerializeField] private int timer;
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();

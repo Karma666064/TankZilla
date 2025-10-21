@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Ball
   - DestructibleObject
+  - Explosion
   layers:
   - Default
   - TransparentFX

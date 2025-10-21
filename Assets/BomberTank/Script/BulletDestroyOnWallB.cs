@@ -7,6 +7,7 @@ public class BulletDestroyOnWallB : MonoBehaviour
     {
         if (collision.CompareTag("Wall"))
         {
+            parent.SpawnAoE();
             parent.DestroyOnContact(0f);
         }
     }

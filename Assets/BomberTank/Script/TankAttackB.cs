@@ -7,6 +7,8 @@ public class TankAttackB : MonoBehaviour
     private TankMoveB attack;
     private TankStateB state;
 
+    [SerializeField] private ExplosionPoolManager explosionPool;
+
     private Vector3 powerUpBulletSize = new(5f, 2f, 1f);
     private Vector3 powerUpBulletSizeTwo = new(10f, 4f, 1f);
     private Vector3 powerUpBulletSizeThree = new(15f, 8f, 1f);
@@ -30,7 +32,6 @@ public class TankAttackB : MonoBehaviour
         if (context.started && canAttack)
         {
             numberUsedBullet += 1;
-
             if (numberUsedBullet >= state.numberAmmo)
                 canAttack = false;
 
@@ -39,7 +40,8 @@ public class TankAttackB : MonoBehaviour
 
             tempoMoveBullet.id = state.id;
             tempoMoveBullet.power = state.power;
-            tempoMoveBullet.isAoE = state.zoneAoE;
+            tempoMoveBullet.sizeAoE = state.zoneAoE;
+            tempoMoveBullet.explosionPool = explosionPool;
 
             switch (state.power)
             {
