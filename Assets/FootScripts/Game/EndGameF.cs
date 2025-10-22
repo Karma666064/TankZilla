@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class EndGameF : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public bool isGameEnded { private get; set; }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (isGameEnded)
+        {
+            isGameEnded = false;
+            Debug.Log("Jeux terminée !");
+        }
     }
 }

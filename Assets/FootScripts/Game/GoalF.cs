@@ -2,25 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GoalF : MonoBehaviour
 {
+    EndGameF eg;
+
     [SerializeField] List<GameObject> tanks = new List<GameObject>();
     [SerializeField] GameObject ball;
     [SerializeField] GameObject goalScreen;
 
+    [SerializeField] TextMeshProUGUI scoreTextGame;
+
     bool isBallActive = true;
     bool isGoalScreenActive;
 
+    int maxGoal = 3;
     public bool isGoal { private get; set; }
 
     public int pointP1;
     public int pointP2;
 
+    private void Start()
+    {
+        eg = GetComponent<EndGameF>();
+    }
+
     private void Update()
     {
+        if (pointP1 >= maxGoal || pointP2 >= maxGoal)
+        {
+            eg.isGameEnded = true;
+        }
         if (isGoal)
         {
             StartCoroutine(Goal());
@@ -84,6 +97,7 @@ public class GoalF : MonoBehaviour
         scoreTextP2.text = pointP2.ToString();
         yield return new WaitForSeconds(3f);
 
+        scoreTextGame.text = $"{pointP1}   :   {pointP2}";
         DisplayGoalScreen();
         TeleportTanks();
         DisplayBall();

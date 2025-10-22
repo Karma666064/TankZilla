@@ -8,10 +8,10 @@ public class StartGameF : MonoBehaviour
 
     private void Start()
     {
-        // Place the tanks on good point
-        tanks[0].transform.position = spawnPoints[0].transform.position;
-        tanks[1].transform.position = spawnPoints[1].transform.position;
+        GameObject tankP1 = tanks[0];
+        GameObject tankP2 = tanks[1];
 
-
+        tankP1.transform.position = spawnPoints[0].transform.position;
+        tankP2.transform.position = spawnPoints[1].transform.position;
     }
 }
