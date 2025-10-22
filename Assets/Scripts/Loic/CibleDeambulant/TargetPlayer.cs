@@ -33,20 +33,43 @@ public class TargetPlayer : MonoBehaviour
     {
         if (inputActions != null)
         {
-            string actionMapName = playerNumber == 1 ? "Player1" : "Player2";
+            string actionMapName = playerNumber == 1 ? "KataPlayer1" : "KataPlayer2";
             playerActionMap = inputActions.FindActionMap(actionMapName);
             
             if (playerActionMap != null)
             {
-                playerActionMap.FindAction("Fire").performed += OnFire;
-                playerActionMap.FindAction("Move").performed += OnMove;
-                playerActionMap.FindAction("Move").canceled += OnMove;
+                // Vérifier que les actions existent avant de s'y abonner
+                InputAction fireAction = playerActionMap.FindAction("Fire");
+                if (fireAction != null)
+                {
+                    fireAction.performed += OnFire;
+                }
+                else
+                {
+                    Debug.LogError($"Action 'Fire' non trouvée dans {actionMapName} !");
+                }
+                
+                InputAction moveAction = playerActionMap.FindAction("Move");
+                if (moveAction != null)
+                {
+                    moveAction.performed += OnMove;
+                    moveAction.canceled += OnMove;
+                }
+                else
+                {
+                    Debug.LogError($"Action 'Move' non trouvée dans {actionMapName} !");
+                }
+                
                 playerActionMap.Enable();
             }
             else
             {
                 Debug.LogError($"Action Map '{actionMapName}' non trouvé !");
             }
+        }
+        else
+        {
+            Debug.LogError("Input Actions Asset non assigné !");
         }
         
         // Player 1 tire vers le haut, Player 2 tire vers le haut aussi
@@ -193,9 +216,20 @@ public class TargetPlayer : MonoBehaviour
     {
         if (playerActionMap != null)
         {
-            playerActionMap.FindAction("Fire").performed -= OnFire;
-            playerActionMap.FindAction("Move").performed -= OnMove;
-            playerActionMap.FindAction("Move").canceled -= OnMove;
+            // Vérifier que chaque action existe avant de se désabonner
+            InputAction fireAction = playerActionMap.FindAction("Fire");
+            if (fireAction != null)
+            {
+                fireAction.performed -= OnFire;
+            }
+            
+            InputAction moveAction = playerActionMap.FindAction("Move");
+            if (moveAction != null)
+            {
+                moveAction.performed -= OnMove;
+                moveAction.canceled -= OnMove;
+            }
+            
             playerActionMap.Disable();
         }
     }
