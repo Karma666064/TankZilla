@@ -2442,6 +2442,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 298236957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &884916225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3351909618096698103, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
+  m_PrefabInstance: {fileID: 1751840936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &884916228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884916225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34497082b0bf23b449577a0eb50fd7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControllerCB
+  playerNumber: 1
+  moveDistancePerQTE: 5
+  moveSpeed: 8
+  penaltyDuration: 2
+  startPoint: {fileID: 1628134173}
+  endPoint: {fileID: 864083044}
+  qteButtons: []
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &943168724
 GameObject:
   m_ObjectHideFlags: 0
@@ -4955,8 +4980,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d465fe6693ee5b41b773dc449b5ecd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  player1: {fileID: 1751840937}
-  player2: {fileID: 1582693918}
+  player1: {fileID: 884916228}
+  player2: {fileID: 1941949417}
   countdownText: {fileID: 391839276}
   winnerPanel: {fileID: 1593343763}
   winnerText: {fileID: 1756960926}
@@ -5069,19 +5094,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3351909618096698103, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1941949417}
   m_SourcePrefab: {fileID: 100100000, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
---- !u!114 &1582693918 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4742876034391063191, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
-  m_PrefabInstance: {fileID: 1582693917}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34497082b0bf23b449577a0eb50fd7c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerControllerCB
 --- !u!1 &1593343763
 GameObject:
   m_ObjectHideFlags: 0
@@ -5306,19 +5323,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3351909618096698103, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 884916228}
   m_SourcePrefab: {fileID: 100100000, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
---- !u!114 &1751840937 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4742876034391063191, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
-  m_PrefabInstance: {fileID: 1751840936}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34497082b0bf23b449577a0eb50fd7c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerControllerCB
 --- !u!1 &1756960924
 GameObject:
   m_ObjectHideFlags: 0
@@ -5490,6 +5499,31 @@ RectTransform:
   m_AnchoredPosition: {x: 125.6, y: 4.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1941949414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3351909618096698103, guid: 057c75ab58c1f1d4a95c268c337a84d4, type: 3}
+  m_PrefabInstance: {fileID: 1582693917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1941949417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941949414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34497082b0bf23b449577a0eb50fd7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControllerCB
+  playerNumber: 2
+  moveDistancePerQTE: 5
+  moveSpeed: 8
+  penaltyDuration: 2
+  startPoint: {fileID: 232513624}
+  endPoint: {fileID: 377813255}
+  qteButtons: []
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &1991295275
 GameObject:
   m_ObjectHideFlags: 0

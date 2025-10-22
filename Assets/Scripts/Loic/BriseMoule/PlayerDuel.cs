@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerDuel : MonoBehaviour
 {
     [Header("Configuration")]
-    public int playerNumber = 1;
-    public float shootCooldown = 0.2f; 
+    public int playerNumber = 1; // 1 ou 2
+    public float shootCooldown = 0.2f; // Temps minimum entre deux tirs
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     
@@ -21,18 +21,29 @@ public class PlayerDuel : MonoBehaviour
     private bool isGameActive = false;
     private bool isDead = false;
     
+    // Direction du tir selon le joueur
     private Vector2 shootDirection;
     
     void Awake()
     {
         if (inputActions != null)
         {
-            string actionMapName = playerNumber == 1 ? "Player1" : "Player2";
+            string actionMapName = playerNumber == 1 ? "KataPlayer1" : "KataPlayer2";
             playerActionMap = inputActions.FindActionMap(actionMapName);
             
             if (playerActionMap != null)
             {
-                playerActionMap.FindAction("Fire").performed += OnFire;
+                // Vérifier que l'action Fire existe
+                InputAction fireAction = playerActionMap.FindAction("Fire");
+                if (fireAction != null)
+                {
+                    fireAction.performed += OnFire;
+                }
+                else
+                {
+                    Debug.LogError($"Action 'Fire' non trouvée dans {actionMapName} !");
+                }
+                
                 playerActionMap.Enable();
             }
             else
@@ -40,7 +51,12 @@ public class PlayerDuel : MonoBehaviour
                 Debug.LogError($"Action Map '{actionMapName}' non trouvé !");
             }
         }
+        else
+        {
+            Debug.LogError("Input Actions Asset non assigné sur PlayerDuel !");
+        }
         
+        // Player 1 tire vers la droite, Player 2 tire vers la gauche
         shootDirection = playerNumber == 1 ? Vector2.right : Vector2.left;
     }
     
@@ -48,6 +64,7 @@ public class PlayerDuel : MonoBehaviour
     {
         if (!isGameActive || isDead) return;
         
+        // Gérer le cooldown de tir
         if (!canShoot)
         {
             shootTimer -= Time.deltaTime;
@@ -70,19 +87,24 @@ public class PlayerDuel : MonoBehaviour
     {
         if (bulletPrefab == null || bulletSpawnPoint == null) return;
         
+        // Créer la balle
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
         
+        // Configurer la balle
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         if (bulletScript != null)
         {
             bulletScript.Initialize(playerNumber, shootDirection);
         }
         
+        // Incrémenter le compteur
         bulletsShot++;
         
+        // Activer le cooldown
         canShoot = false;
         shootTimer = shootCooldown;
         
+        // Feedback visuel (optionnel)
         StartCoroutine(ShootEffect());
         
         Debug.Log($"Player {playerNumber} tire ! Total: {bulletsShot} balles");
@@ -116,6 +138,7 @@ public class PlayerDuel : MonoBehaviour
         isDead = true;
         isGameActive = false;
         
+        // Effet visuel de mort
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)
         {
@@ -124,18 +147,23 @@ public class PlayerDuel : MonoBehaviour
         
         Debug.Log($"Player {playerNumber} est mort !");
         
-        DuelGameManager.Instance.PlayerDied(playerNumber);
+        // Notifier le GameManager
+        if (DuelGameManager.Instance != null)
+        {
+            DuelGameManager.Instance.PlayerDied(playerNumber);
+        }
     }
     
     void OnTriggerEnter2D(Collider2D collision)
     {
+        // Si une balle ennemie touche le joueur
         if (collision.CompareTag("Bullet"))
         {
             Bullet bullet = collision.GetComponent<Bullet>();
             if (bullet != null && bullet.ownerPlayer != playerNumber)
             {
                 Die();
-                Destroy(collision.gameObject); 
+                Destroy(collision.gameObject); // Détruire la balle
             }
         }
     }
@@ -144,7 +172,13 @@ public class PlayerDuel : MonoBehaviour
     {
         if (playerActionMap != null)
         {
-            playerActionMap.FindAction("Fire").performed -= OnFire;
+            // Vérifier que l'action existe avant de se désabonner
+            InputAction fireAction = playerActionMap.FindAction("Fire");
+            if (fireAction != null)
+            {
+                fireAction.performed -= OnFire;
+            }
+            
             playerActionMap.Disable();
         }
     }

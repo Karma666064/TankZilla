@@ -6,8 +6,8 @@ public class PlayerControllerCB : MonoBehaviour
 {
     [Header("Configuration")]
     public int playerNumber = 1;
-    public float moveDistancePerQTE = 5f;
-    public float moveSpeed = 8f;
+    public float moveDistancePerQTE = 5f; // Distance parcourue à chaque bon QTE
+    public float moveSpeed = 8f; // Vitesse de déplacement
     public float penaltyDuration = 2f;
     
     [Header("Références")]
@@ -31,15 +31,54 @@ public class PlayerControllerCB : MonoBehaviour
     {
         if (inputActions != null)
         {
-            string actionMapName = playerNumber == 1 ? "Player1" : "Player2";
+            string actionMapName = playerNumber == 1 ? "KataPlayer1" : "KataPlayer2";
             playerActionMap = inputActions.FindActionMap(actionMapName);
             
             if (playerActionMap != null)
             {
-                playerActionMap.FindAction("ButtonA").performed += OnButtonA;
-                playerActionMap.FindAction("ButtonB").performed += OnButtonB;
-                playerActionMap.FindAction("ButtonX").performed += OnButtonX;
-                playerActionMap.FindAction("ButtonY").performed += OnButtonY;
+                // NOUVEAU MAPPING pour Player1:
+                // S → A, D → B, Q → X, Z → Y
+                
+                // Vérifier que chaque action existe avant de s'abonner
+                InputAction actionA = playerActionMap.FindAction("ButtonA");
+                if (actionA != null)
+                {
+                    actionA.performed += OnButtonA; // S pour P1, A pour P2
+                }
+                else
+                {
+                    Debug.LogError($"Action 'ButtonA' non trouvée dans {actionMapName} !");
+                }
+                
+                InputAction actionB = playerActionMap.FindAction("ButtonB");
+                if (actionB != null)
+                {
+                    actionB.performed += OnButtonB; // D pour P1, B pour P2
+                }
+                else
+                {
+                    Debug.LogError($"Action 'ButtonB' non trouvée dans {actionMapName} !");
+                }
+                
+                InputAction actionX = playerActionMap.FindAction("ButtonX");
+                if (actionX != null)
+                {
+                    actionX.performed += OnButtonX; // Q pour P1, X pour P2
+                }
+                else
+                {
+                    Debug.LogError($"Action 'ButtonX' non trouvée dans {actionMapName} !");
+                }
+                
+                InputAction actionY = playerActionMap.FindAction("ButtonY");
+                if (actionY != null)
+                {
+                    actionY.performed += OnButtonY; // Z pour P1, Y pour P2
+                }
+                else
+                {
+                    Debug.LogError($"Action 'ButtonY' non trouvée dans {actionMapName} !");
+                }
                 
                 playerActionMap.Enable();
             }
@@ -47,6 +86,10 @@ public class PlayerControllerCB : MonoBehaviour
             {
                 Debug.LogError($"Action Map '{actionMapName}' non trouvé !");
             }
+        }
+        else
+        {
+            Debug.LogError("Input Actions Asset non assigné sur PlayerControllerCB !");
         }
     }
 
@@ -63,6 +106,7 @@ public class PlayerControllerCB : MonoBehaviour
     {
         if (!isRaceActive || hasFinished) return;
 
+        // Déplacement progressif vers la position cible
         if (isMovingToNextQTE)
         {
             transform.position = Vector3.MoveTowards(
@@ -71,10 +115,12 @@ public class PlayerControllerCB : MonoBehaviour
                 moveSpeed * Time.deltaTime
             );
 
+            // Vérifier si on a atteint la cible
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 isMovingToNextQTE = false;
                 
+                // Vérifier si la course est terminée
                 if (currentQTEIndex >= qteButtons.Length)
                 {
                     hasFinished = true;
@@ -82,10 +128,13 @@ public class PlayerControllerCB : MonoBehaviour
                 }
                 else
                 {
+                    // Afficher le prochain QTE
                     ShowCurrentQTE();
                 }
             }
         }
+
+        // Traiter l'input reçu si on est en attente d'un QTE
         if (!isMovingToNextQTE && !isPenalized && lastPressedButton.HasValue)
         {
             CheckQTEInput(lastPressedButton.Value);
@@ -134,8 +183,12 @@ public class PlayerControllerCB : MonoBehaviour
             
             if (isCorrect)
             {
+                Debug.Log($"Player {playerNumber} : Bonne touche !");
+                
+                // Cacher le QTE validé
                 currentQTE.HideQTE();
                 
+                // Calculer la prochaine position
                 currentQTEIndex++;
                 
                 if (currentQTEIndex < qteButtons.Length)
@@ -144,6 +197,7 @@ public class PlayerControllerCB : MonoBehaviour
                 }
                 else
                 {
+                    // Aller à la ligne d'arrivée
                     targetPosition = endPoint.position;
                 }
                 
@@ -195,10 +249,13 @@ public class PlayerControllerCB : MonoBehaviour
         isPenalized = false;
         isMovingToNextQTE = false;
         
+        // Cacher tous les QTE au début
         foreach (QTEButton qte in qteButtons)
         {
             qte.HideQTE();
         }
+        
+        // Afficher le premier QTE
         ShowCurrentQTE();
     }
 
@@ -206,10 +263,29 @@ public class PlayerControllerCB : MonoBehaviour
     {
         if (playerActionMap != null)
         {
-            playerActionMap.FindAction("ButtonA").performed -= OnButtonA;
-            playerActionMap.FindAction("ButtonB").performed -= OnButtonB;
-            playerActionMap.FindAction("ButtonX").performed -= OnButtonX;
-            playerActionMap.FindAction("ButtonY").performed -= OnButtonY;
+            InputAction actionA = playerActionMap.FindAction("ButtonA");
+            if (actionA != null)
+            {
+                actionA.performed -= OnButtonA;
+            }
+            
+            InputAction actionB = playerActionMap.FindAction("ButtonB");
+            if (actionB != null)
+            {
+                actionB.performed -= OnButtonB;
+            }
+            
+            InputAction actionX = playerActionMap.FindAction("ButtonX");
+            if (actionX != null)
+            {
+                actionX.performed -= OnButtonX;
+            }
+            
+            InputAction actionY = playerActionMap.FindAction("ButtonY");
+            if (actionY != null)
+            {
+                actionY.performed -= OnButtonY;
+            }
             
             playerActionMap.Disable();
         }
