@@ -18,20 +18,38 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Paramètres Audio")]
     public Slider masterVolumeSlider;
+    public TextMeshProUGUI masterVolumeValueText;
     public Slider musicVolumeSlider;
-    public Slider sfxVolumeSlider;
+    public TextMeshProUGUI musicVolumeValueText;
     public Toggle muteToggle;
+    public TextMeshProUGUI muteToggleLabel;
 
     [Header("Paramètres Graphiques")]
     public Toggle fullscreenToggle;
     public TMP_Dropdown resolutionDropdown;
     public TMP_Dropdown qualityDropdown;
+    public Toggle vsyncToggle;
+    public TMP_Dropdown targetFramerateDropdown;
 
-    [Header("Autres")]
+    [Header("Paramètres de Jeu")]
+    public TMP_Dropdown difficultyDropdown;
+    public Toggle tutorialToggle;
+
+    [Header("Données")]
+    public Button resetLeaderboardButton;
+    public GameObject resetConfirmationPanel;
+    public Button confirmResetButton;
+    public Button cancelResetButton;
+    public TextMeshProUGUI resetStatusText;
+
+    [Header("Boutons Navigation")]
     public Button backButton;
     public Button creditsBackButton;
+    public Button applyButton;
+    public Button defaultsButton;
 
     private Resolution[] resolutions;
+    private bool hasUnsavedChanges = false;
 
     void Start()
     {
@@ -45,7 +63,7 @@ public class MainMenuManager : MonoBehaviour
         // Afficher le panneau principal
         ShowMainPanel();
 
-        // Configuration des boutons
+        // Configuration des boutons principaux
         if (playButton != null)
             playButton.onClick.AddListener(OnPlayClicked);
         
@@ -59,37 +77,75 @@ public class MainMenuManager : MonoBehaviour
             quitButton.onClick.AddListener(OnQuitClicked);
         
         if (backButton != null)
-            backButton.onClick.AddListener(ShowMainPanel);
+            backButton.onClick.AddListener(OnBackFromSettings);
         
         if (creditsBackButton != null)
             creditsBackButton.onClick.AddListener(ShowMainPanel);
+
+        // Boutons settings
+        if (applyButton != null)
+            applyButton.onClick.AddListener(OnApplySettings);
+        
+        if (defaultsButton != null)
+            defaultsButton.onClick.AddListener(OnRestoreDefaults);
+
+        // Boutons reset leaderboard
+        if (resetLeaderboardButton != null)
+            resetLeaderboardButton.onClick.AddListener(OnResetLeaderboardClicked);
+        
+        if (confirmResetButton != null)
+            confirmResetButton.onClick.AddListener(OnConfirmReset);
+        
+        if (cancelResetButton != null)
+            cancelResetButton.onClick.AddListener(OnCancelReset);
+
+        if (resetConfirmationPanel != null)
+            resetConfirmationPanel.SetActive(false);
 
         // Charger les paramètres
         LoadSettings();
         SetupResolutions();
         SetupQualityLevels();
+        SetupFramerates();
 
-        // Listeners pour les paramètres
+        // Listeners pour détecter les changements
+        SetupChangeListeners();
+    }
+
+    void SetupChangeListeners()
+    {
+        // Audio
         if (masterVolumeSlider != null)
-            masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
+            masterVolumeSlider.onValueChanged.AddListener((value) => { UpdateVolumeText(masterVolumeValueText, value); hasUnsavedChanges = true; });
         
         if (musicVolumeSlider != null)
-            musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
-        
-        if (sfxVolumeSlider != null)
-            sfxVolumeSlider.onValueChanged.AddListener(OnSFXVolumeChanged);
+            musicVolumeSlider.onValueChanged.AddListener((value) => { UpdateVolumeText(musicVolumeValueText, value); hasUnsavedChanges = true; });
         
         if (muteToggle != null)
-            muteToggle.onValueChanged.AddListener(OnMuteToggled);
-        
+            muteToggle.onValueChanged.AddListener((value) => { UpdateMuteLabel(); hasUnsavedChanges = true; });
+
+        // Graphiques
         if (fullscreenToggle != null)
-            fullscreenToggle.onValueChanged.AddListener(OnFullscreenToggled);
+            fullscreenToggle.onValueChanged.AddListener((value) => hasUnsavedChanges = true);
         
         if (resolutionDropdown != null)
-            resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
+            resolutionDropdown.onValueChanged.AddListener((value) => hasUnsavedChanges = true);
         
         if (qualityDropdown != null)
-            qualityDropdown.onValueChanged.AddListener(OnQualityChanged);
+            qualityDropdown.onValueChanged.AddListener((value) => hasUnsavedChanges = true);
+        
+        if (vsyncToggle != null)
+            vsyncToggle.onValueChanged.AddListener((value) => hasUnsavedChanges = true);
+        
+        if (targetFramerateDropdown != null)
+            targetFramerateDropdown.onValueChanged.AddListener((value) => hasUnsavedChanges = true);
+
+        // Jeu
+        if (difficultyDropdown != null)
+            difficultyDropdown.onValueChanged.AddListener((value) => hasUnsavedChanges = true);
+        
+        if (tutorialToggle != null)
+            tutorialToggle.onValueChanged.AddListener((value) => hasUnsavedChanges = true);
     }
 
     void ShowMainPanel()
@@ -101,10 +157,7 @@ public class MainMenuManager : MonoBehaviour
 
     void OnPlayClicked()
     {
-        // Réinitialiser le jeu et commencer
         GameDataManager.Instance.ResetGame();
-        
-        // Charger le premier mini-jeu
         string firstGame = GameDataManager.Instance.GetNextMiniGameScene();
         SceneManager.LoadScene(firstGame);
     }
@@ -113,12 +166,24 @@ public class MainMenuManager : MonoBehaviour
     {
         if (mainPanel != null) mainPanel.SetActive(false);
         if (settingsPanel != null) settingsPanel.SetActive(true);
+        hasUnsavedChanges = false;
+        LoadSettings(); // Recharger pour annuler les changements non sauvegardés
     }
 
     void OnCreditsClicked()
     {
         if (mainPanel != null) mainPanel.SetActive(false);
         if (creditsPanel != null) creditsPanel.SetActive(true);
+    }
+
+    void OnBackFromSettings()
+    {
+        if (hasUnsavedChanges)
+        {
+            // Optionnel : Afficher une confirmation
+            Debug.Log("Changements non sauvegardés annulés");
+        }
+        ShowMainPanel();
     }
 
     void OnQuitClicked()
@@ -131,28 +196,20 @@ public class MainMenuManager : MonoBehaviour
     }
 
     // === PARAMÈTRES AUDIO ===
-    void OnMasterVolumeChanged(float value)
+    void UpdateVolumeText(TextMeshProUGUI textElement, float value)
     {
-        AudioListener.volume = value;
-        PlayerPrefs.SetFloat("MasterVolume", value);
+        if (textElement != null)
+        {
+            textElement.text = Mathf.RoundToInt(value * 100) + "%";
+        }
     }
 
-    void OnMusicVolumeChanged(float value)
+    void UpdateMuteLabel()
     {
-        // À implémenter avec votre système audio
-        PlayerPrefs.SetFloat("MusicVolume", value);
-    }
-
-    void OnSFXVolumeChanged(float value)
-    {
-        // À implémenter avec votre système audio
-        PlayerPrefs.SetFloat("SFXVolume", value);
-    }
-
-    void OnMuteToggled(bool isMuted)
-    {
-        AudioListener.pause = isMuted;
-        PlayerPrefs.SetInt("Muted", isMuted ? 1 : 0);
+        if (muteToggleLabel != null && muteToggle != null)
+        {
+            muteToggleLabel.text = muteToggle.isOn ? "Activé" : "Désactivé";
+        }
     }
 
     // === PARAMÈTRES GRAPHIQUES ===
@@ -183,19 +240,6 @@ public class MainMenuManager : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
     }
 
-    void OnResolutionChanged(int index)
-    {
-        Resolution resolution = resolutions[index];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        PlayerPrefs.SetInt("ResolutionIndex", index);
-    }
-
-    void OnFullscreenToggled(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
-    }
-
     void SetupQualityLevels()
     {
         if (qualityDropdown == null) return;
@@ -206,10 +250,139 @@ public class MainMenuManager : MonoBehaviour
         qualityDropdown.RefreshShownValue();
     }
 
-    void OnQualityChanged(int index)
+    void SetupFramerates()
     {
-        QualitySettings.SetQualityLevel(index);
-        PlayerPrefs.SetInt("QualityLevel", index);
+        if (targetFramerateDropdown == null) return;
+
+        targetFramerateDropdown.ClearOptions();
+        System.Collections.Generic.List<string> framerates = new System.Collections.Generic.List<string>
+        {
+            "30 FPS",
+            "60 FPS",
+            "120 FPS",
+            "144 FPS",
+            "Illimité"
+        };
+        targetFramerateDropdown.AddOptions(framerates);
+    }
+
+    // === APPLIQUER LES PARAMÈTRES ===
+    void OnApplySettings()
+    {
+        // Audio
+        if (masterVolumeSlider != null)
+        {
+            float masterVolume = masterVolumeSlider.value;
+            AudioListener.volume = masterVolume;
+            PlayerPrefs.SetFloat("MasterVolume", masterVolume);
+        }
+
+        if (musicVolumeSlider != null)
+        {
+            PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
+        }
+
+        if (muteToggle != null)
+        {
+            bool isMuted = muteToggle.isOn;
+            AudioListener.pause = isMuted;
+            PlayerPrefs.SetInt("Muted", isMuted ? 1 : 0);
+        }
+
+        // Graphiques
+        if (fullscreenToggle != null)
+        {
+            Screen.fullScreen = fullscreenToggle.isOn;
+            PlayerPrefs.SetInt("Fullscreen", fullscreenToggle.isOn ? 1 : 0);
+        }
+
+        if (resolutionDropdown != null && resolutions != null)
+        {
+            Resolution resolution = resolutions[resolutionDropdown.value];
+            Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+            PlayerPrefs.SetInt("ResolutionIndex", resolutionDropdown.value);
+        }
+
+        if (qualityDropdown != null)
+        {
+            QualitySettings.SetQualityLevel(qualityDropdown.value);
+            PlayerPrefs.SetInt("QualityLevel", qualityDropdown.value);
+        }
+
+        if (vsyncToggle != null)
+        {
+            QualitySettings.vSyncCount = vsyncToggle.isOn ? 1 : 0;
+            PlayerPrefs.SetInt("VSync", vsyncToggle.isOn ? 1 : 0);
+        }
+
+        if (targetFramerateDropdown != null)
+        {
+            int[] fpsValues = { 30, 60, 120, 144, -1 };
+            Application.targetFrameRate = fpsValues[targetFramerateDropdown.value];
+            PlayerPrefs.SetInt("TargetFramerate", targetFramerateDropdown.value);
+        }
+
+        // Jeu
+        if (difficultyDropdown != null)
+        {
+            PlayerPrefs.SetInt("Difficulty", difficultyDropdown.value);
+        }
+
+        if (tutorialToggle != null)
+        {
+            PlayerPrefs.SetInt("ShowTutorial", tutorialToggle.isOn ? 1 : 0);
+        }
+
+        PlayerPrefs.Save();
+        hasUnsavedChanges = false;
+
+        Debug.Log("Paramètres sauvegardés !");
+    }
+
+    // === RESTAURER PAR DÉFAUT ===
+    void OnRestoreDefaults()
+    {
+        // Audio
+        if (masterVolumeSlider != null)
+        {
+            masterVolumeSlider.value = 1f;
+            UpdateVolumeText(masterVolumeValueText, 1f);
+        }
+
+        if (musicVolumeSlider != null)
+        {
+            musicVolumeSlider.value = 0.8f;
+            UpdateVolumeText(musicVolumeValueText, 0.8f);
+        }
+
+        if (muteToggle != null)
+        {
+            muteToggle.isOn = false;
+            UpdateMuteLabel();
+        }
+
+        // Graphiques
+        if (fullscreenToggle != null)
+            fullscreenToggle.isOn = true;
+
+        if (qualityDropdown != null)
+            qualityDropdown.value = 2; // Medium/High
+
+        if (vsyncToggle != null)
+            vsyncToggle.isOn = true;
+
+        if (targetFramerateDropdown != null)
+            targetFramerateDropdown.value = 1; // 60 FPS
+
+        // Jeu
+        if (difficultyDropdown != null)
+            difficultyDropdown.value = 1; // Normal
+
+        if (tutorialToggle != null)
+            tutorialToggle.isOn = true;
+
+        hasUnsavedChanges = true;
+        Debug.Log("Paramètres par défaut restaurés (non sauvegardés)");
     }
 
     // === CHARGEMENT DES PARAMÈTRES ===
@@ -221,19 +394,22 @@ public class MainMenuManager : MonoBehaviour
             float masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
             masterVolumeSlider.value = masterVolume;
             AudioListener.volume = masterVolume;
+            UpdateVolumeText(masterVolumeValueText, masterVolume);
         }
 
         if (musicVolumeSlider != null)
-            musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
-
-        if (sfxVolumeSlider != null)
-            sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        {
+            float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.8f);
+            musicVolumeSlider.value = musicVolume;
+            UpdateVolumeText(musicVolumeValueText, musicVolume);
+        }
 
         if (muteToggle != null)
         {
             bool isMuted = PlayerPrefs.GetInt("Muted", 0) == 1;
             muteToggle.isOn = isMuted;
             AudioListener.pause = isMuted;
+            UpdateMuteLabel();
         }
 
         // Graphiques
@@ -242,5 +418,77 @@ public class MainMenuManager : MonoBehaviour
 
         if (qualityDropdown != null)
             qualityDropdown.value = PlayerPrefs.GetInt("QualityLevel", QualitySettings.GetQualityLevel());
+
+        if (vsyncToggle != null)
+            vsyncToggle.isOn = PlayerPrefs.GetInt("VSync", 1) == 1;
+
+        if (targetFramerateDropdown != null)
+            targetFramerateDropdown.value = PlayerPrefs.GetInt("TargetFramerate", 1);
+
+        if (resolutionDropdown != null)
+            resolutionDropdown.value = PlayerPrefs.GetInt("ResolutionIndex", resolutions.Length - 1);
+
+        // Jeu
+        if (difficultyDropdown != null)
+            difficultyDropdown.value = PlayerPrefs.GetInt("Difficulty", 1);
+
+        if (tutorialToggle != null)
+            tutorialToggle.isOn = PlayerPrefs.GetInt("ShowTutorial", 1) == 1;
+    }
+
+    // === RESET LEADERBOARD ===
+    void OnResetLeaderboardClicked()
+    {
+        if (resetConfirmationPanel != null)
+        {
+            resetConfirmationPanel.SetActive(true);
+        }
+    }
+
+    void OnConfirmReset()
+    {
+        // Réinitialiser toutes les données de jeu
+        if (GameDataManager.Instance != null)
+        {
+            GameDataManager.Instance.ResetGame();
+        }
+
+        // Supprimer tous les scores sauvegardés
+        PlayerPrefs.DeleteKey("HighScores");
+        PlayerPrefs.DeleteKey("BestTimes");
+        PlayerPrefs.Save();
+
+        // Afficher message de confirmation
+        if (resetStatusText != null)
+        {
+            resetStatusText.text = "✓ Classement réinitialisé !";
+            resetStatusText.color = Color.green;
+        }
+
+        Debug.Log("Leaderboard réinitialisé !");
+
+        // Fermer le panneau après 1.5 secondes
+        if (resetConfirmationPanel != null)
+        {
+            Invoke(nameof(CloseResetPanel), 1.5f);
+        }
+    }
+
+    void OnCancelReset()
+    {
+        CloseResetPanel();
+    }
+
+    void CloseResetPanel()
+    {
+        if (resetConfirmationPanel != null)
+        {
+            resetConfirmationPanel.SetActive(false);
+        }
+
+        if (resetStatusText != null)
+        {
+            resetStatusText.text = "";
+        }
     }
 }
