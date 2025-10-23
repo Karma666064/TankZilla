@@ -583,6 +583,54 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 95033948-e878-4c71-b5b9-ce7f1c2ebf33
     m_ActionName: Player2/Dash
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 436e1741-42e8-4d61-94c0-fa94422022e4
+    m_ActionName: 'KataPlayer1/ButtonA[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 84304f18-b536-4f0e-9853-6bb718010134
+    m_ActionName: 'KataPlayer1/ButtonB[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3e9e6bf5-3d51-4e8c-8628-7afa9d84eefc
+    m_ActionName: 'KataPlayer1/ButtonX[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a2badf83-17db-4634-8aea-68bb560cef34
+    m_ActionName: 'KataPlayer1/ButtonY[/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: df2071fc-09d2-427b-8e5e-9731f3ac0007
+    m_ActionName: 'KataPlayer1/Fire[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf137938-0acf-4e36-a02d-2b90495d2c66
+    m_ActionName: 'KataPlayer1/Move[/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65c2566b-c1b3-4a75-b676-8e2bb33d9904
+    m_ActionName: 'KataPlayer2/ButtonA[/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f21fee85-4dab-4762-8c51-b3f8fb98ebc1
+    m_ActionName: 'KataPlayer2/ButtonB[/XInputControllerWindows/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4793bc71-8bcd-47ee-9dca-1b51e15814df
+    m_ActionName: 'KataPlayer2/ButtonX[/XInputControllerWindows/buttonWest]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2319a351-7feb-4c75-8c8e-2e9d22b14a8d
+    m_ActionName: 'KataPlayer2/ButtonY[/XInputControllerWindows/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 550e5722-ebda-461f-96e3-902dc514b783
+    m_ActionName: 'KataPlayer2/Fire[/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a67efd26-affa-4eb4-bac7-117a562c7bbd
+    m_ActionName: 'KataPlayer2/Move[/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player2
@@ -22460,6 +22508,54 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 95033948-e878-4c71-b5b9-ce7f1c2ebf33
     m_ActionName: Player2/Dash
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 436e1741-42e8-4d61-94c0-fa94422022e4
+    m_ActionName: 'KataPlayer1/ButtonA[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 84304f18-b536-4f0e-9853-6bb718010134
+    m_ActionName: 'KataPlayer1/ButtonB[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3e9e6bf5-3d51-4e8c-8628-7afa9d84eefc
+    m_ActionName: 'KataPlayer1/ButtonX[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a2badf83-17db-4634-8aea-68bb560cef34
+    m_ActionName: 'KataPlayer1/ButtonY[/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: df2071fc-09d2-427b-8e5e-9731f3ac0007
+    m_ActionName: 'KataPlayer1/Fire[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf137938-0acf-4e36-a02d-2b90495d2c66
+    m_ActionName: 'KataPlayer1/Move[/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65c2566b-c1b3-4a75-b676-8e2bb33d9904
+    m_ActionName: 'KataPlayer2/ButtonA[/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f21fee85-4dab-4762-8c51-b3f8fb98ebc1
+    m_ActionName: 'KataPlayer2/ButtonB[/XInputControllerWindows/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4793bc71-8bcd-47ee-9dca-1b51e15814df
+    m_ActionName: 'KataPlayer2/ButtonX[/XInputControllerWindows/buttonWest]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2319a351-7feb-4c75-8c8e-2e9d22b14a8d
+    m_ActionName: 'KataPlayer2/ButtonY[/XInputControllerWindows/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 550e5722-ebda-461f-96e3-902dc514b783
+    m_ActionName: 'KataPlayer2/Fire[/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a67efd26-affa-4eb4-bac7-117a562c7bbd
+    m_ActionName: 'KataPlayer2/Move[/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player1

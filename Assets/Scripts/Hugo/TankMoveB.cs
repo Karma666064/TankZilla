@@ -31,6 +31,7 @@ public class TankMoveB : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("OnMove");
         moveInput = context.ReadValue<Vector2>();
 
         if (moveInput.y < -0.3)
