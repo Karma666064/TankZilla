@@ -1,15 +1,19 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField] GameObject playPannel;
-    [SerializeField] GameObject settingPannel;
+    [SerializeField] float openDuration;
 
-    Vector3 initialPosPanel = new Vector3(-637.1f, 26.1f, 0);
-    Vector3 targetPosPanel = new Vector3(1162.9f, 26.1f, 0);
+    Vector2 initialPosPanel = new Vector2(-637.1f, 26.1f);
+    Vector2 targetPosPanel = new Vector2(1162.9f, 26.1f);
 
-    void OpenPlayPanel()
+    public void OpenPanel(RectTransform panel)
     {
-
+        panel.DOAnchorPos(targetPosPanel, openDuration);
+    }
+    public void ClosePanel(RectTransform panel)
+    {
+        panel.DOAnchorPos(initialPosPanel, openDuration);
     }
 }
