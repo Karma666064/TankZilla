@@ -970,6 +970,75 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &685519200
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.26825
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.74224
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295338921879664562, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135836808988383831, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: loopMusic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135836808988383831, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: musicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f5a002546d0651a4991722f02afa1e2f, type: 3}
+    - target: {fileID: 6135836808988383831, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: playOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239468123281430301, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
+      propertyPath: m_Name
+      value: MusicManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 64ac3278a35ee574b849910a3da8e2f8, type: 3}
 --- !u!1 &688794057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,7 +3989,7 @@ MonoBehaviour:
   player2ScoreText: {fileID: 344626814}
   resultPanel: {fileID: 73027512}
   resultText: {fileID: 688794059}
-  gameDuration: 30
+  gameDuration: 56
 --- !u!4 &1138281217
 Transform:
   m_ObjectHideFlags: 0
@@ -6010,3 +6079,4 @@ SceneRoots:
   - {fileID: 766129527}
   - {fileID: 323700510}
   - {fileID: 1819237142}
+  - {fileID: 685519200}
