@@ -14,7 +14,20 @@ public class TankStateB : MonoBehaviour
     public int numberAmmo = 1;
     public int id;
     public int zoneAoE = 1;
+    public bool endgame = true;
     public TankPowerBullet power = TankPowerBullet.levelOne;
+
+    public void Start()
+    {
+        TimerB.TimerEnd += DisableTank;
+        StartTimer.StartGame += DisableTank;
+    }
+
+    private void DisableTank()
+    {
+        Debug.Log("Here");
+        endgame = !endgame;
+    }
 
     public void ChangePower()
     {

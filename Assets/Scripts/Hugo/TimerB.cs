@@ -1,17 +1,24 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
-using System.Runtime.CompilerServices;
-using System.IO;
+using System;
 
 public class TimerB : MonoBehaviour
 {
+    public static event Action TimerEnd;
     private TextMeshProUGUI text;
     [SerializeField] private int timer;
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
         text.text = timer.ToString();
+
+        StartTimer.StartGame += StartGameTimer;
+        
+    }
+    
+    private void StartGameTimer()
+    {
         StartCoroutine(TimerGame());
     }
 
@@ -23,5 +30,7 @@ public class TimerB : MonoBehaviour
             timer -= 1;
             text.text = timer.ToString();
         }
+
+        TimerEnd?.Invoke();
     }
 }

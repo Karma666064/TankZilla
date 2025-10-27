@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class ScoreB : MonoBehaviour
 {
-    private int scoreP1 = 0;
-    private int scoreP2 = 0;
+    public int scoreP1 = 0;
+    public int scoreP2 = 0;
     [SerializeField] private TextMeshProUGUI textScoreP1;
     [SerializeField] private TextMeshProUGUI textScoreP2;
     void Start()

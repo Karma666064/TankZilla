@@ -8,6 +8,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sunny/FootTankTestScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 2a52b206b87da3e4785a35e5091942aa
+  - enabled: 1
+    path: Assets/Scenes/Hugo/BomberTankGameScene.unity
+    guid: 21f36e0ab8dec5c478ab7ba8a94064d4
+  - enabled: 1
+    path: Assets/Scenes/Loic/CourseBarjotGameScene.unity
+    guid: a5e17bde99e51284bbfb337cadca0a47
+  - enabled: 1
+    path: Assets/Scenes/Loic/CibleDeambulant.unity
+    guid: e9fd065c342df5949900c05ec529213b
+  - enabled: 1
+    path: Assets/Scenes/Loic/BriseMoule.unity
+    guid: b0f715c3021232041a3d894616ef7b36
+  - enabled: 1
+    path: Assets/Scenes/Sunny/FootTankGameScene.unity
+    guid: 1d955a4b465b6f248aa93d7221945463
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

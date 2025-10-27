@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class TankAttackB : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
+    private InputSystem inputActions;
     private TankMoveB attack;
     private TankStateB state;
 
@@ -15,6 +16,7 @@ public class TankAttackB : MonoBehaviour
 
     private bool canAttack = true;
     private int numberUsedBullet = 0;
+    [SerializeField] private int id;
 
     [SerializeField] private Transform posBullet;
 
@@ -24,59 +26,76 @@ public class TankAttackB : MonoBehaviour
         attack = GetComponent<TankMoveB>();
 
         BulletMoveB.RetrieveAmmo += RetrieveAmmo;
+
+        inputActions = new InputSystem();
+        inputActions.Enable();
+
+        if (id == 1)
+        {
+            inputActions.Player1.Attack.started += OnAttack;
+        }
+        else if (id == 2)
+        {
+            Debug.Log("I'm here");
+            inputActions.Player2.Attack.started += OnAttack;
+            inputActions.Player2.Attack.performed += OnAttack;
+        }
     }
 
     // Update is called once per frame
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.started && canAttack)
+        if (!state.endgame)
         {
-            numberUsedBullet += 1;
-            if (numberUsedBullet >= state.numberAmmo)
-                canAttack = false;
-
-            GameObject tempo = Instantiate(bullet, posBullet.position, Quaternion.identity);
-            BulletMoveB tempoMoveBullet = tempo.GetComponent<BulletMoveB>();
-
-            tempoMoveBullet.id = state.id;
-            tempoMoveBullet.power = state.power;
-            tempoMoveBullet.sizeAoE = state.zoneAoE;
-            tempoMoveBullet.explosionPool = explosionPool;
-
-            switch (state.power)
+            if (context.started && canAttack)
             {
-                case TankStateB.TankPowerBullet.levelOne:
-                    break;
-                case TankStateB.TankPowerBullet.levelTwo:
-                    tempo.transform.localScale = powerUpBulletSize;
-                    break;
-                case TankStateB.TankPowerBullet.levelThree:
-                    tempo.transform.localScale = powerUpBulletSizeTwo;
-                    break;
-                case TankStateB.TankPowerBullet.levelFour:
-                    tempo.transform.localScale = powerUpBulletSizeThree;
-                    break;
-            }
+                numberUsedBullet += 1;
+                if (numberUsedBullet >= state.numberAmmo)
+                    canAttack = false;
 
-            switch (attack.currentDirection)
-            {
-                case TankMoveB.Direction.Up:
-                    tempoMoveBullet.directionBullet = Vector3.up;
-                    break;
-                case TankMoveB.Direction.Down:
-                    tempoMoveBullet.directionBullet = Vector3.down;
-                    tempo.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
-                    break;
-                case TankMoveB.Direction.Left:
-                    tempoMoveBullet.directionBullet = Vector3.left;
-                    tempo.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                    break;
-                case TankMoveB.Direction.Right:
-                    tempoMoveBullet.directionBullet = Vector3.right;
-                    tempo.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-                    break;
-                default:
-                    break;
+                GameObject tempo = Instantiate(bullet, posBullet.position, Quaternion.identity);
+                BulletMoveB tempoMoveBullet = tempo.GetComponent<BulletMoveB>();
+
+                tempoMoveBullet.id = state.id;
+                tempoMoveBullet.power = state.power;
+                tempoMoveBullet.sizeAoE = state.zoneAoE;
+                tempoMoveBullet.explosionPool = explosionPool;
+
+                switch (state.power)
+                {
+                    case TankStateB.TankPowerBullet.levelOne:
+                        break;
+                    case TankStateB.TankPowerBullet.levelTwo:
+                        tempo.transform.localScale = powerUpBulletSize;
+                        break;
+                    case TankStateB.TankPowerBullet.levelThree:
+                        tempo.transform.localScale = powerUpBulletSizeTwo;
+                        break;
+                    case TankStateB.TankPowerBullet.levelFour:
+                        tempo.transform.localScale = powerUpBulletSizeThree;
+                        break;
+                }
+
+                switch (attack.currentDirection)
+                {
+                    case TankMoveB.Direction.Up:
+                        tempoMoveBullet.directionBullet = Vector3.up;
+                        break;
+                    case TankMoveB.Direction.Down:
+                        tempoMoveBullet.directionBullet = Vector3.down;
+                        tempo.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                        break;
+                    case TankMoveB.Direction.Left:
+                        tempoMoveBullet.directionBullet = Vector3.left;
+                        tempo.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                        break;
+                    case TankMoveB.Direction.Right:
+                        tempoMoveBullet.directionBullet = Vector3.right;
+                        tempo.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

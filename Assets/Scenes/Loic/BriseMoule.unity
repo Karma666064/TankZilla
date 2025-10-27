@@ -5978,7 +5978,7 @@ GameObject:
   - component: {fileID: 2042311213}
   - component: {fileID: 2042311212}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameManagerBriseMoule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
