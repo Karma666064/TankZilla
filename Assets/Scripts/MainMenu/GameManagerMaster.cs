@@ -24,6 +24,8 @@ public class GameManagerMaster : MonoBehaviour
     public string playerOneName;
     public string playerTwoName;
 
+    private int numberGamePlayed = 0;
+
     private void Awake()
     {
         if (!Instance)
@@ -61,8 +63,9 @@ public class GameManagerMaster : MonoBehaviour
 
     public void ChooseGame()
     {
-        CheckAllGamePlayed();
-        if (!allGamePlayed)
+        //CheckAllGamePlayed();
+        Debug.Log(numberGamePlayed);
+        if (numberGamePlayed < 5)
         {
             if (currentGame == GameType.LoicGame)
             {
@@ -78,15 +81,21 @@ public class GameManagerMaster : MonoBehaviour
         else
         {
             ResetGameList();
+            numberGamePlayed = 0;
+            SceneManager.LoadScene("MenuScene");
         }
     }
     
     private void ResetGameList()
     {
-        foreach (KeyValuePair<string, bool> pair in gameList)
+       gameList = new Dictionary<string, bool>
         {
-            gameList[pair.Key] = false;
-        }
+            { "BriseMoule", false },
+            { "CibleDeambulant", false },
+            { "CourseBarjot", false },
+            { "TankFoot", false },
+            { "BomberTank", false }
+        };
     }
 
     private void CheckAllGamePlayed()
@@ -95,6 +104,7 @@ public class GameManagerMaster : MonoBehaviour
 
         foreach (KeyValuePair<string, bool> pair in gameList)
         {
+            Debug.Log("Value " + pair.Value);
             if (!pair.Value)
             {
                 tempo = false;
@@ -112,6 +122,7 @@ public class GameManagerMaster : MonoBehaviour
             case 1:
                 if (!gameList["BriseMoule"])
                 {
+                    numberGamePlayed += 1;
                     SceneManager.LoadScene("BriseMoule");
                     gameList["BriseMoule"] = true;
                 }
@@ -121,6 +132,7 @@ public class GameManagerMaster : MonoBehaviour
             case 2:
                 if (!gameList["CibleDeambulant"])
                 {
+                    numberGamePlayed += 1;
                     SceneManager.LoadScene("CibleDeambulant");
                     gameList["CibleDeambulant"] = true;
                 }
@@ -130,36 +142,43 @@ public class GameManagerMaster : MonoBehaviour
             case 3:
                 if (!gameList["CourseBarjot"])
                 {
+                    numberGamePlayed += 1;
                     SceneManager.LoadScene("CourseBarjotGameScene");
                     gameList["CourseBarjot"] = true;
                 }
                 else
                     ChooseLoicGames(Random.Range(1, 4));
                 break;
+            default:
+                break;
         }
     }
     
     private void ChooseSungoGames(int rand)
     {
-         switch (rand)
+        switch (rand)
         {
             case 1:
                 if (!gameList["TankFoot"])
                 {
+                    numberGamePlayed += 1;
                     SceneManager.LoadScene("FootTankGameScene");
                     gameList["TankFoot"] = true;
                 }
                 else
-                    ChooseLoicGames(Random.Range(1, 4));
+                    ChooseSungoGames(Random.Range(1, 3));
                 break;
             case 2:
                 if (!gameList["BomberTank"])
                 {
+                    numberGamePlayed += 1;
                     SceneManager.LoadScene("BomberTankGameScene");
                     gameList["BomberTank"] = true;
                 }
                 else
-                    ChooseLoicGames(Random.Range(1, 4));
+                    ChooseSungoGames(Random.Range(1, 3));
+                break;
+            default:
                 break;
         }
     }
