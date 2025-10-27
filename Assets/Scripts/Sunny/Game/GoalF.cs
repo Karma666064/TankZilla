@@ -98,9 +98,19 @@ public class GoalF : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         scoreTextGame.text = $"{pointP1}   :   {pointP2}";
-        DisplayGoalScreen();
-        TeleportTanks();
-        DisplayBall();
-        ToggleTanks();
+
+        if (pointP1 >= 3 || pointP2 >= 3) OnGameEnd();
+        else
+        {
+            DisplayGoalScreen();
+            TeleportTanks();
+            DisplayBall();
+            ToggleTanks();
+        }
+    }
+
+    private void OnGameEnd()
+    {
+        eg.isGameEnded = true;
     }
 }

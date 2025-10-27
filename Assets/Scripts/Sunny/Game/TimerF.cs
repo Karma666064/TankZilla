@@ -7,7 +7,7 @@ public class TimerF : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timerText;
 
-    [SerializeField] float duration = 60f;
+    [SerializeField] float duration = 120f;
     [HideInInspector] public float timer;
     bool isRunning = true;
 

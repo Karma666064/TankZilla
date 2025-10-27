@@ -9,7 +9,8 @@ public class EndGameF : MonoBehaviour
         if (isGameEnded)
         {
             isGameEnded = false;
-            Debug.Log("Jeux terminée !");
+
+            Time.timeScale = 0;
         }
     }
 }
